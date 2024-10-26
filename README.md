@@ -1,1 +1,1 @@
-# CapStone_JSC
+# CapStone_JSK

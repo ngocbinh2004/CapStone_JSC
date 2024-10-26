@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Quản Lý Điện Thoại</title>
+    <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+/>
+
+    <link rel="stylesheet" href="../../index.css" />
+  </head>
+  <body>
+    <div class="container mx-auto px-4">
+      <!-- Navbar -->
+      <nav class="bg-blue-500 text-white p-4 rounded">
+        <div class="flex items-center justify-between">
+          <a class="text-lg font-bold" href="#">Cyber Phone</a>
+        </div>
+      </nav>
+
+      <!-- Tab Content -->
+      <div class="mt-4" id="DanhSachSP">
+        <div class="flex justify-between items-center">
+          <!-- Add New Button -->
+          <button
+            id="addPhoneForm"
+            class="bg-green-500 text-white px-4 py-2 rounded"
+          >
+            <i class="fa fa-plus mr-1"></i> Thêm Mới
+          </button>
+
+          <!-- Search and Sort -->
+          <div class="flex space-x-2">
+            <input
+              type="text"
+              id="searchPhone"
+              class="border border-gray-300 p-2 rounded-l"
+              placeholder="Tìm kiếm theo tên"
+            />
+            <button id="sortPriceAsc" class="bg-gray-300 p-2 rounded">
+              Giá Tăng Dần ↑
+            </button>
+            <button id="sortPriceDesc" class="bg-gray-300 p-2 rounded">
+              Giá Giảm Dần ↓
+            </button>
+          </div>
+        </div>
+
+        <!-- Product Table -->
+        <div class="overflow-x-auto mt-4">
+          <table class="w-full text-left border border-gray-300">
+            <thead>
+              <tr class="bg-gray-100">
+                <th class="py-2 px-4 border-b">#</th>
+                <th class="py-2 px-4 border-b">Tên</th>
+                <th class="py-2 px-4 border-b">Giá</th>
+                <th class="py-2 px-4 border-b">Hình Ảnh</th>
+                <th class="py-2 px-4 border-b">Mô Tả</th>
+                <th class="py-2 px-4 border-b">Hành Động</th>
+              </tr>
+            </thead>
+            <tbody id="tablePhone"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Modal -->
+      <div
+        class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden"
+        id="exampleModal"
+      >
+        <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+          <div class="flex justify-between items-center mb-4">
+            <h4 class="text-lg font-bold">Quản Lý Điện Thoại</h4>
+            <button
+              type="button"
+              class="text-gray-400 hover:text-gray-600"
+              id="btnClose"
+            >
+              <i class="fa fa-times"></i>
+            </button>
+          </div>
+
+          <!-- Modal Body -->
+          <div class="space-y-4">
+            <div>
+              <label class="block">Tên Điện Thoại</label>
+              <input
+                id="name"
+                class="border border-gray-300 p-2 w-full rounded"
+                placeholder="Nhập tên điện thoại"
+              />
+              <span class="text-red-500 text-xs" id="tbname"></span>
+            </div>
+            <div>
+              <label>Giá</label>
+              <input
+                id="price"
+                class="border border-gray-300 p-2 w-full rounded"
+                placeholder="Nhập giá"
+              />
+              <span class="text-red-500 text-xs" id="tbprice"></span>
+            </div>
+            <div>
+              <label>Màn Hình</label>
+              <input
+                id="screen"
+                class="border border-gray-300 p-2 w-full rounded"
+                placeholder="Nhập chi tiết màn hình"
+              />
+              <span class="text-red-500 text-xs" id="tbscreen"></span>
+            </div>
+            <div>
+              <label>Camera Sau</label>
+              <input
+                id="backCam"
+                class="border border-gray-300 p-2 w-full rounded"
+                placeholder="Nhập chi tiết camera sau"
+              />
+              <span class="text-red-500 text-xs" id="tbbackCam"></span>
+            </div>
+            <div>
+              <label>Camera Trước</label>
+              <input
+                id="frontCam"
+                class="border border-gray-300 p-2 w-full rounded"
+                placeholder="Nhập chi tiết camera trước"
+              />
+              <span class="text-red-500 text-xs" id="tbfrontCam"></span>
+            </div>
+            <div>
+              <label>Link Hình Ảnh</label>
+              <input
+                id="img"
+                class="border border-gray-300 p-2 w-full rounded"
+                placeholder="Nhập link hình ảnh"
+              />
+              <span class="text-red-500 text-xs" id="tbimg"></span>
+            </div>
+            <div>
+              <label>Mô Tả</label>
+              <input
+                id="desc"
+                class="border border-gray-300 p-2 w-full rounded"
+                placeholder="Nhập mô tả sản phẩm"
+              />
+              <span class="text-red-500 text-xs" id="tbdesc"></span>
+            </div>
+            <div>
+              <label>Loại</label>
+              <select
+                id="type"
+                class="border border-gray-300 p-2 w-full rounded"
+              >
+                <option selected disabled>Chọn loại sản phẩm</option>
+                <option>Apple</option>
+                <option>Samsung</option>
+              </select>
+              <span class="text-red-500 text-xs" id="tbtype"></span>
+            </div>
+          </div>
+
+          <!-- Modal Footer -->
+          <div class="flex justify-end mt-6 space-x-2">
+            <button
+              type="button"
+              id="btnAddPhone"
+              class="bg-blue-500 text-white px-4 py-2 rounded"
+            >
+              Thêm Điện Thoại
+            </button>
+            <button
+              type="button"
+              id="btnUpdate"
+              class="bg-yellow-500 text-white px-4 py-2 rounded hidden"
+            >
+              Cập Nhật Điện Thoại
+            </button>
+            <button
+              type="button"
+              id="btnClose"
+              class="bg-red-500 text-white px-4 py-2 rounded"
+            >
+              Đóng
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <footer class="bg-gradient-to-b from-blue-400 to-blue-800 text-white py-12">
+        <div class="container mx-auto px-6">
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
+            <!-- Info -->
+            <div>
+              <h6 class="uppercase font-bold mb-4 flex items-center justify-center">
+                <i class="fa-lg fa-solid fa-robot mr-3"></i> CYBER PHONE
+              </h6>
+              <p class="leading-relaxed">
+                We pride ourselves on our efficiency and hard work, but most of all our ability to source you the best quality and best value products and devices in the market.
+              </p>
+            </div>
+      
+            <!-- Brands -->
+            <div>
+              <h6 class="uppercase font-bold mb-4">Brands</h6>
+              <ul class="space-y-2">
+                <li><a href="#" class="hover:underline">iPhone</a></li>
+                <li><a href="#" class="hover:underline">Samsung</a></li>
+                <li><a href="#" class="hover:underline">Xiaomi</a></li>
+                <li><a href="#" class="hover:underline">Oppo</a></li>
+              </ul>
+            </div>
+      
+            <!-- Useful Links -->
+            <div>
+              <h6 class="uppercase font-bold mb-4">Useful Links</h6>
+              <ul class="space-y-2">
+                <li><a href="#" class="hover:underline">Pricing</a></li>
+                <li><a href="#" class="hover:underline">Settings</a></li>
+                <li><a href="#" class="hover:underline">Orders</a></li>
+                <li><a href="#" class="hover:underline">Help</a></li>
+              </ul>
+            </div>
+      
+            <!-- Contact Info -->
+            <div>
+              <h6 class="uppercase font-bold mb-4">Contact</h6>
+              <ul class="space-y-2">
+                <li class="flex items-center justify-center">
+                  <i class="fas fa-home mr-3"></i> Sai Gon, VN
+                </li>
+                <li class="flex items-center justify-center">
+                  <i class="fas fa-envelope mr-3"></i> CyberPhone@gmail.com
+                </li>
+                <li class="flex items-center justify-center">
+                  <i class="fas fa-phone mr-3"></i> 0123456789
+                </li>
+                <li class="flex items-center justify-center">
+                  <i class="fas fa-print mr-3"></i> 0123456789
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      
+        <!-- Footer Bottom Section -->
+        <div class="text-center mt-8 bg-blue-900 py-4">
+          &copy; 2024 Copyright:
+          <a class="text-white font-bold hover:underline" href="#">Cyber Phone</a>
+        </div>
+      </footer>
+      
+
+    </div>
+  </body>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.7/axios.js"
+    integrity="sha512-luUnkeG+uabiT2pZdi5ME5uADvq+FpDs2fK5V0nVXrHCND9F077fKaE9W//oJvGnWSmwQmCau63A6s3um1NZmg=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  ></script>
+  <script type="module" src="./../controllers/main.js"></script>
+  <script>
+    // Open modal
+    document
+      .getElementById("addPhoneForm")
+      .addEventListener("click", function () {
+        const modal = document.getElementById("exampleModal");
+        modal.classList.remove("hidden");
+        modal.classList.add("flex");
+      });
+
+    // Close modal on clicking close button
+    document.querySelectorAll("#btnClose").forEach((button) => {
+      button.addEventListener("click", function () {
+        const modal = document.getElementById("exampleModal");
+        modal.classList.add("hidden");
+        modal.classList.remove("flex");
+      });
+    });
+  </script>
+</html>
